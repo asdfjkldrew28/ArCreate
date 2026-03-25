@@ -138,6 +138,7 @@ const materialSchema = new mongoose.Schema({
 const projectSchema = new mongoose.Schema({
   project_name: { type: String, required: true },
   project_type: String,
+  thumbnail_url: String,
   client_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   foreman_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   client_name: String,
@@ -465,6 +466,61 @@ const MaterialRequestLastViewed = mongoose.model('MaterialRequestLastViewed', ma
 const MaterialRequestProcessedViewed = mongoose.model('MaterialRequestProcessedViewed', materialRequestProcessedViewedSchema);
 const Notification = mongoose.model('Notification', notificationSchema);
 
+async function ensureQuickAccessUsers() {
+  const quickUsers = [
+    {
+      username: process.env.QUICK_LOGIN_ADMIN_USERNAME || 'admin',
+      password: process.env.QUICK_LOGIN_ADMIN_PASSWORD || 'admin123',
+      full_name: 'System Administrator',
+      role: 'admin',
+      status: 'active'
+    },
+    {
+      username: process.env.QUICK_LOGIN_FOREMAN_USERNAME || 'foreman',
+      password: process.env.QUICK_LOGIN_FOREMAN_PASSWORD || 'foreman123',
+      full_name: 'foreman',
+      email: 'foreman@gmail.com',
+      phone: '09123456789',
+      role: 'foreman',
+      status: 'active'
+    },
+    {
+      username: process.env.QUICK_LOGIN_CLIENT_USERNAME || 'client',
+      password: process.env.QUICK_LOGIN_CLIENT_PASSWORD || 'client123',
+      full_name: 'Default Client',
+      role: 'client',
+      status: 'active'
+    },
+    {
+      username: process.env.QUICK_LOGIN_CLIENT_DEMO_USERNAME || 'clientdemo',
+      password: process.env.QUICK_LOGIN_CLIENT_DEMO_PASSWORD || 'client123',
+      full_name: 'Demo Client',
+      email: 'clientdemo@arcreate.app',
+      phone: '09123456789',
+      role: 'client',
+      status: 'active'
+    }
+  ];
+
+  for (const quickUser of quickUsers) {
+    const hashedPassword = await bcrypt.hash(quickUser.password, 10);
+    await User.findOneAndUpdate(
+      { username: quickUser.username },
+      {
+        $set: {
+          password: hashedPassword,
+          full_name: quickUser.full_name,
+          email: quickUser.email || '',
+          phone: quickUser.phone || '',
+          role: quickUser.role,
+          status: quickUser.status
+        }
+      },
+      { upsert: true, new: true }
+    );
+  }
+}
+
 // ==================== HELPER FUNCTIONS ====================
 const createActivityLog = async (userId, userName, userRole, action, description, ipAddress = '127.0.0.1') => {
   try {
@@ -522,20 +578,8 @@ app.get('/api/test', (req, res) => {
 app.post('/api/auth/login', async (req, res) => {
   try {
     const { username, password } = req.body;
-    
-    // Check if admin exists, if not create one
-    const adminExists = await User.findOne({ role: 'admin' });
-    if (!adminExists) {
-      const hashedPassword = await bcrypt.hash('admin123', 10);
-      await User.create({
-        username: 'admin',
-        password: hashedPassword,
-        full_name: 'System Administrator',
-        role: 'admin',
-        status: 'active'
-      });
-      logger.info('Default admin created');
-    }
+
+    await ensureQuickAccessUsers();
     
     const user = await User.findOne({ username, status: 'active' });
     if (!user) {
@@ -1290,6 +1334,7 @@ app.get('/api/dashboard/admin', async (req, res) => {
       project_id: project._id,
       project_name: project.project_name,
       project_type: project.project_type,
+      thumbnail_url: project.thumbnail_url || '',
       client_id: project.client_id?._id,
       client_name: project.client_id?.company_name || project.client_id?.full_name || 'Unknown',
       foreman_id: project.foreman_id?._id,
@@ -1354,6 +1399,7 @@ app.get('/api/dashboard/foreman/:userId', async (req, res) => {
       project_id: p._id,
       project_name: p.project_name,
       project_type: p.project_type,
+      thumbnail_url: p.thumbnail_url || '',
       client_id: p.client_id?._id,
       client_name: p.client_id?.company_name || p.client_id?.full_name || 'Not assigned', // Fix: Use company_name or full_name
       client_phone: p.client_id?.phone || '',
@@ -1479,6 +1525,7 @@ app.get('/api/dashboard/client/:userId', async (req, res) => {
           project_id: p._id,
           project_name: p.project_name,
           project_type: p.project_type || 'Residential',
+          thumbnail_url: p.thumbnail_url || '',
           status: p.status || 'planning',
           address: p.address || '',
           start_date: p.start_date,
@@ -1538,6 +1585,7 @@ app.get('/api/projects', async (req, res) => {
       project_id: p._id,
       project_name: p.project_name,
       project_type: p.project_type,
+      thumbnail_url: p.thumbnail_url || '',
       client_id: p.client_id?._id,
       client_name: p.client_id?.company_name || p.client_id?.full_name || 'Unknown',
       foreman_id: p.foreman_id?._id,
@@ -1573,6 +1621,7 @@ app.get('/api/projects/client/:clientId', async (req, res) => {
         project_id: p._id,
         project_name: p.project_name,
         project_type: p.project_type,
+        thumbnail_url: p.thumbnail_url || '',
         client_id: p.client_id,
         foreman_id: p.foreman_id?._id,
         foreman_name: p.foreman_id?.full_name,
@@ -1604,6 +1653,7 @@ app.get('/api/projects/foreman/:foremanId', async (req, res) => {
       project_id: p._id,
       project_name: p.project_name,
       project_type: p.project_type,
+      thumbnail_url: p.thumbnail_url || '',
       client_id: p.client_id?._id,
       client_name: p.client_id?.company_name || p.client_id?.full_name || 'Unknown',
       address: p.address,
