@@ -1,0 +1,574 @@
+/* ClientDashboard.css - UPDATED for better text handling */
+
+/* Inherit base styles from DashboardAdmin */
+@import url('./DashboardAdmin.css');
+
+.client-sidebar {
+  background: linear-gradient(180deg, #4b5563 0%, #374151 100%);
+}
+
+.client-sidebar .user-info {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.client-sidebar .user-avatar.client-avatar {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  width: 80px;
+  height: 80px;
+  font-size: 2rem;
+  margin: 0 auto 15px;
+}
+
+.client-sidebar .user-name {
+  color: white;
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  font-weight: 600;
+  margin-bottom: 5px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.4;
+}
+
+.client-sidebar .user-role {
+  color: #e0e7ff;
+  font-size: clamp(0.75rem, 2vw, 0.9rem);
+  background: rgba(102, 126, 234, 0.3);
+  padding: 4px 12px;
+  border-radius: 15px;
+  display: inline-block;
+  max-width: 100%;
+  word-break: break-word;
+}
+
+.client-sidebar .client-type {
+  color: #cbd5e1;
+  font-size: clamp(0.7rem, 1.8vw, 0.8rem);
+  margin-top: 5px;
+  word-break: break-word;
+}
+
+.client-sidebar .nav-link {
+  color: #cbd5e1;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+}
+
+.client-logout {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  white-space: normal;
+  word-break: break-word;
+}
+
+.client-welcome {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 25px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+}
+
+.contact-details {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  font-size: clamp(0.8rem, 2.2vw, 0.9rem);
+  opacity: 0.9;
+}
+
+.stat-icon.projects,
+.stat-icon.active,
+.stat-icon.investment,
+.stat-icon.paid {
+  width: 60px;
+  height: 60px;
+  font-size: 1.5rem;
+}
+
+.stat-icon.investment {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+  flex-shrink: 0;
+}
+
+.stat-icon.investment i {
+  font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .stat-icon.investment {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+  
+  .stat-icon.investment i {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-icon.investment {
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
+  }
+  
+  .stat-icon.investment i {
+    font-size: 1.1rem;
+  }
+}
+
+.project-meta {
+  font-size: clamp(0.8rem, 2.2vw, 0.9rem);
+  color: #64748b;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.balance {
+  font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.team-card {
+  background: #f8fafc;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.team-member {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.member-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6b7280, #4b5563);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  flex-shrink: 0;
+  font-size: clamp(0.9rem, 2.2vw, 1rem);
+}
+
+.member-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.member-name {
+  font-weight: 600;
+  font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+  word-break: break-word;
+}
+
+.member-role {
+  font-size: clamp(0.7rem, 1.8vw, 0.8rem);
+  color: #64748b;
+}
+
+.payment-card {
+  background: #f0f9ff;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border-left: 4px solid #3b82f6;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.payment-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.payment-project {
+  font-weight: 600;
+  font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+  word-break: break-word;
+}
+
+.payment-amount {
+  color: #10b981;
+  font-weight: 600;
+  font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+  white-space: nowrap;
+}
+
+.payment-type {
+  font-size: clamp(0.7rem, 1.8vw, 0.8rem);
+  color: #6b7280;
+  margin-bottom: 5px;
+  word-break: break-word;
+}
+
+.payment-meta {
+  font-size: clamp(0.6rem, 1.6vw, 0.7rem);
+  color: #9ca3af;
+  word-break: break-word;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .stat-icon.projects,
+  .stat-icon.active,
+  .stat-icon.investment,
+  .stat-icon.paid {
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-details {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .team-member {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .member-contact {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .payment-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .payment-amount {
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  .full-width {
+    width: 100%;
+  }
+  
+  .stat-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+  
+  .stat-icon {
+    margin-bottom: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .client-welcome .welcome-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .contact-details {
+    align-items: center;
+  }
+  
+  .member-avatar {
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+  }
+  
+  .payment-project {
+    font-size: 0.85rem;
+  }
+  
+  .payment-amount {
+    font-size: 0.85rem;
+  }
+}
+
+/* Notification Badge - circular by default */
+.notification-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 4px;
+  background: #3b82f6;
+  color: white;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  line-height: 1;
+  transition: all 0.2s ease;
+  margin-left: auto;
+  animation: pulse 1s infinite;
+}
+
+.notification-badge.single-digit {
+  min-width: 20px;
+  width: 20px;
+  border-radius: 50%;
+  padding: 0;
+}
+
+.notification-badge.double-digit {
+  min-width: 24px;
+  padding: 0 6px;
+  border-radius: 20px;
+}
+
+.notification-badge.triple-digit {
+  min-width: 28px;
+  padding: 0 8px;
+  border-radius: 20px;
+  font-size: 0.65rem;
+}
+
+.notification-badge.large {
+  min-width: 32px;
+  padding: 0 8px;
+  border-radius: 20px;
+  font-size: 0.6rem;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.nav-link:hover .notification-badge {
+  animation: none;
+  transform: scale(1.05);
+  transition: transform 0.2s;
+}
+
+/* ========== PROGRESS AND DOCUMENT STYLES ========== */
+
+/* Progress Cards */
+.progress-card {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 12px;
+  border-left: 4px solid #667eea;
+  transition: all 0.3s;
+}
+
+.progress-card:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.progress-project {
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.progress-percentage-badge {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.progress-phase {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.progress-desc {
+  font-size: 0.9rem;
+  color: #475569;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.progress-meta {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.progress-meta i {
+  margin-right: 3px;
+}
+
+.separator {
+  color: #cbd5e1;
+}
+
+/* Document Cards */
+.documents-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.document-card {
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s;
+  border: 1px solid #e5e7eb;
+}
+
+.document-card:hover {
+  border-color: #667eea;
+  transform: translateX(3px);
+}
+
+.document-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #667eea;
+  flex-shrink: 0;
+}
+
+.document-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.document-name {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.document-type {
+  font-size: 0.7rem;
+  color: #64748b;
+  text-transform: capitalize;
+}
+
+.document-meta {
+  font-size: 0.65rem;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+.document-actions {
+  flex-shrink: 0;
+}
+
+.download-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.download-btn:hover {
+  background: #10b981;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.delete-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-btn:hover {
+  background: #ef4444;
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Document Actions Button - Open Link */
+.open-link-btn {
+  background: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.open-link-btn:hover {
+  background: #10b981;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+.open-link-btn i {
+  font-size: 0.7rem;
+}

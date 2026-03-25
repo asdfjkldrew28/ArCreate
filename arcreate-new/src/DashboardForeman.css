@@ -1,0 +1,880 @@
+/* DashboardForeman.css - UPDATED for better text handling */
+
+/* Inherit base styles from DashboardAdmin */
+@import url('./DashboardAdmin.css');
+
+.foreman-sidebar {
+  background: linear-gradient(180deg, #b45309 0%, #92400e 100%);
+}
+
+/* Stats Grid - Override with improved text handling */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-width: 0;
+}
+
+.stat-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+  flex-shrink: 0;
+}
+
+.stat-icon.materials {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+}
+
+.stat-icon.stock {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+.stat-icon.materials i,
+.stat-icon.stock i {
+  font-size: 1.5rem;
+}
+
+.stat-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.stat-value {
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: bold;
+  color: #1e293b;
+  margin-bottom: 5px;
+  line-height: 1.2;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.stat-label {
+  color: #64748b;
+  font-size: clamp(0.7rem, 2vw, 0.85rem);
+  word-break: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.4;
+}
+
+/* Project Cards */
+.project-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 15px;
+  border: 2px solid #e5e7eb;
+  transition: all 0.3s;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.project-title {
+  color: #1e293b;
+  margin: 0 0 5px 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+}
+
+.client-info {
+  font-size: clamp(0.8rem, 2.2vw, 0.9rem);
+  color: #64748b;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.project-status {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: clamp(0.7rem, 2vw, 0.8rem);
+  font-weight: 600;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.project-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.detail-item {
+  font-size: clamp(0.8rem, 2.2vw, 0.9rem);
+  color: #64748b;
+  margin-bottom: 5px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.detail-item i {
+  flex-shrink: 0;
+  width: 16px;
+  text-align: center;
+}
+
+.project-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: clamp(0.8rem, 2.2vw, 0.9rem);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+/* Alert Cards */
+.alert-card {
+  background: #fef3c7;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border-left: 4px solid #f59e0b;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.alert-title {
+  font-weight: 600;
+  color: #92400e;
+  margin-bottom: 5px;
+  word-break: break-word;
+  font-size: clamp(0.9rem, 2.4vw, 1rem);
+}
+
+.alert-location {
+  font-size: clamp(0.8rem, 2.2vw, 0.9rem);
+  color: #64748b;
+  margin-bottom: 10px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.alert-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.alert-quantity {
+  font-size: clamp(1.1rem, 2.8vw, 1.2rem);
+  font-weight: bold;
+  color: #ff0000;
+  word-break: break-word;
+}
+
+/* Welcome Section */
+.welcome-section {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+  padding: 25px;
+  border-radius: 15px;
+  margin-bottom: 30px;
+}
+
+.welcome-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.welcome-text h2 {
+  color: white;
+  margin-bottom: 5px;
+  word-break: break-word;
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+}
+
+.welcome-text p {
+  font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+  opacity: 0.95;
+}
+
+/* Two Column Layout */
+.two-column-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .project-details {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .stat-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.3rem;
+  }
+  
+  .stat-icon.materials,
+  .stat-icon.stock {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .stat-icon.materials i,
+  .stat-icon.stock i {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .two-column-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-details {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .project-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .project-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+    white-space: normal;
+    word-break: break-word;
+    padding: 12px;
+  }
+
+  .alert-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .btn-order {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .welcome-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .welcome-text h2 {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .stat-icon {
+    margin-bottom: 5px;
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
+  }
+
+  .stat-icon.materials,
+  .stat-icon.stock {
+    width: 45px;
+    height: 45px;
+  }
+
+  .stat-icon.materials i,
+  .stat-icon.stock i {
+    font-size: 1.1rem;
+  }
+
+  .stat-value {
+    font-size: 1.2rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+  }
+
+  .detail-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+  }
+  
+  .detail-item i {
+    margin-bottom: 3px;
+  }
+  
+  .alert-quantity {
+    font-size: 1.1rem;
+  }
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: #64748b;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.3s;
+  background: white;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.back-btn:hover {
+  background: #f8fafc;
+  transform: translateX(-3px);
+  color: #1e293b;
+}
+
+@media (max-width: 768px) {
+  .header-left {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .back-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Redesigned Stock Issues Section */
+
+/* Stock Issues Grid */
+.stock-issues-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  margin-top: 10px;
+}
+
+/* Stock Issue Card */
+.stock-issue-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+}
+
+.stock-issue-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  border-color: #f59e0b;
+}
+
+/* Card Header */
+.stock-issue-header {
+  background: linear-gradient(135deg, #fef3c7, #fffbeb);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid #fde68a;
+  position: relative;
+}
+
+.stock-issue-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.3rem;
+  box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+}
+
+.stock-issue-title {
+  flex: 1;
+}
+
+.stock-issue-title h4 {
+  color: #92400e;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+  line-height: 1.3;
+}
+
+.stock-issue-date {
+  font-size: 0.7rem;
+  color: #b45309;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(245, 158, 11, 0.1);
+  padding: 3px 8px;
+  border-radius: 12px;
+}
+
+.stock-issue-date i {
+  font-size: 0.65rem;
+}
+
+/* Quantity Badge */
+.stock-quantity-badge {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  border-radius: 12px;
+  padding: 8px 12px;
+  text-align: center;
+  min-width: 70px;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+.quantity-number {
+  display: block;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: white;
+  line-height: 1;
+}
+
+.quantity-unit {
+  display: block;
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* Card Body */
+.stock-issue-body {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stock-project-info,
+.stock-purpose-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: #4b5563;
+}
+
+.stock-project-info i,
+.stock-purpose-info i {
+  width: 16px;
+  color: #f59e0b;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.stock-project-info span,
+.stock-purpose-info span {
+  flex: 1;
+  line-height: 1.4;
+}
+
+/* Card Footer */
+.stock-issue-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.stock-status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #10b981;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  animation: pulse-green 1.5s infinite;
+}
+
+.status-dot.issued {
+  background: #f59e0b;
+  animation: pulse-orange 1.5s infinite;
+}
+
+@keyframes pulse-green {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+}
+
+@keyframes pulse-orange {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(245, 158, 11, 0);
+  }
+}
+
+/* View Details Button */
+.view-details-stock-btn {
+  background: rgba(102, 126, 234, 0.1);
+  border: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #667eea;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.view-details-stock-btn:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.view-details-stock-btn i {
+  font-size: 0.7rem;
+}
+
+/* Empty State Enhancement */
+.empty-state.small {
+  text-align: center;
+  padding: 50px 20px;
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  border-radius: 16px;
+  border: 2px dashed #e5e7eb;
+}
+
+.empty-state.small .empty-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  opacity: 0.6;
+  color: #10b981;
+}
+
+.empty-state.small p {
+  color: #1e293b;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.empty-state.small .empty-subtext {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .stock-issues-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .stock-issue-header {
+    padding: 12px 15px;
+  }
+  
+  .stock-issue-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  
+  .stock-quantity-badge {
+    min-width: 60px;
+    padding: 5px 8px;
+  }
+  
+  .quantity-number {
+    font-size: 1.1rem;
+  }
+  
+  .stock-issue-body {
+    padding: 12px 15px;
+  }
+  
+  .stock-issue-footer {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .view-details-stock-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .stock-issue-header {
+    flex-wrap: wrap;
+  }
+  
+  .stock-issue-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
+  
+  .stock-issue-title h4 {
+    font-size: 0.9rem;
+  }
+  
+  .stock-project-info,
+  .stock-purpose-info {
+    font-size: 0.8rem;
+  }
+}
+
+/* Section Actions */
+.section-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Clear All Button */
+.clear-all-stock-btn {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #ef4444;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.clear-all-stock-btn:hover {
+  background: #ef4444;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+  border-color: #ef4444;
+}
+
+/* Stock Actions Container */
+.stock-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Delete Stock Button */
+.delete-stock-btn {
+  background: rgba(239, 68, 68, 0.1);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  color: #ef4444;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-stock-btn:hover:not(:disabled) {
+  background: #ef4444;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+.delete-stock-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Card Deleting Animation */
+.stock-issue-card.deleting {
+  opacity: 0.5;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .section-actions {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  
+  .clear-all-stock-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .stock-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .view-details-stock-btn,
+  .delete-stock-btn {
+    flex: 1;
+    justify-content: center;
+  }
+  
+  .delete-stock-btn {
+    width: auto;
+    padding: 6px 12px;
+    border-radius: 20px;
+  }
+}
+
+/* Notification Badge - circular by default */
+.notification-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 4px;
+  background: #3b82f6;
+  color: white;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  line-height: 1;
+  transition: all 0.2s ease;
+  margin-left: auto;
+  animation: pulse 1s infinite;
+}
+
+.notification-badge.single-digit {
+  min-width: 20px;
+  width: 20px;
+  border-radius: 50%;
+  padding: 0;
+}
+
+.notification-badge.double-digit {
+  min-width: 24px;
+  padding: 0 6px;
+  border-radius: 20px;
+}
+
+.notification-badge.triple-digit {
+  min-width: 28px;
+  padding: 0 8px;
+  border-radius: 20px;
+  font-size: 0.65rem;
+}
+
+.notification-badge.large {
+  min-width: 32px;
+  padding: 0 8px;
+  border-radius: 20px;
+  font-size: 0.6rem;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.nav-link:hover .notification-badge {
+  animation: none;
+  transform: scale(1.05);
+  transition: transform 0.2s;
+}
