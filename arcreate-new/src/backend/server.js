@@ -1063,11 +1063,14 @@ app.get('/api/users/:userId/specialties', async (req, res) => {
 app.delete('/api/users/:userId', async (req, res) => {
   try {
     const { userId } = req.params;
-    const { username, password, userRole } = req.body;
-
-    if (userRole === 'admin') {
-      return res.status(403).json({ success: false, message: 'Admin accounts cannot be deleted' });
-    }
+    const {
+      username,
+      password,
+      userRole,
+      adminUsername,
+      adminUserId,
+      adminRole
+    } = req.body;
 
     const user = await User.findById(userId);
     
@@ -1075,13 +1078,32 @@ app.delete('/api/users/:userId', async (req, res) => {
       return res.status(404).json({ success: false, message: 'User not found' });
     }
 
-    if (user.username !== username) {
-      return res.status(401).json({ success: false, message: 'Username does not match' });
-    }
+    const isAdminDelete = adminRole === 'admin' || userRole === 'admin';
+    if (isAdminDelete) {
+      if (user.role === 'admin') {
+        return res.status(403).json({ success: false, message: 'Admin accounts cannot be deleted' });
+      }
 
-    const validPassword = await bcrypt.compare(password, user.password);
-    if (!validPassword) {
-      return res.status(401).json({ success: false, message: 'Invalid password' });
+      const actingAdmin = adminUserId
+        ? await User.findById(adminUserId)
+        : (adminUsername ? await User.findOne({ username: adminUsername }) : null);
+
+      if (!actingAdmin || actingAdmin.role !== 'admin') {
+        return res.status(403).json({ success: false, message: 'Only admin accounts can delete users' });
+      }
+    } else {
+      if (user.role === 'admin') {
+        return res.status(403).json({ success: false, message: 'Admin accounts cannot be deleted' });
+      }
+
+      if (user.username !== username) {
+        return res.status(401).json({ success: false, message: 'Username does not match' });
+      }
+
+      const validPassword = await bcrypt.compare(password, user.password);
+      if (!validPassword) {
+        return res.status(401).json({ success: false, message: 'Invalid password' });
+      }
     }
 
     if (user.role === 'client') {
@@ -1114,6 +1136,17 @@ app.delete('/api/users/:userId', async (req, res) => {
     await Conversation.deleteMany({ _id: { $in: conversationIds } });
 
     await User.findByIdAndDelete(userId);
+
+    if (isAdminDelete) {
+      const actingAdminName = adminUsername || 'admin';
+      await createActivityLog(
+        adminUserId || null,
+        actingAdminName,
+        'admin',
+        'DELETE',
+        `Deleted user account: ${user.username} (${user.role})`
+      );
+    }
 
     logger.info(`User account deleted: ${user.username} (${user.role})`);
     
