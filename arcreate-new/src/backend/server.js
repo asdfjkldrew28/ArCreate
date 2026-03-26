@@ -1877,7 +1877,11 @@ app.get('/api/payments/all', async (req, res) => {
       payment_date: p.payment_date,
       payment_method: p.payment_method || 'cash',
       payment_type: p.payment_type || 'payment',
-      client_id: p.client_id
+      payment_status: p.payment_status || 'paid',
+      reference_number: p.reference_number || '',
+      notes: p.notes || '',
+      client_id: p.client_id,
+      created_at: p.created_at
     }));
     
     res.json({ success: true, payments: formattedPayments });
@@ -1999,6 +2003,44 @@ app.post('/api/payments', async (req, res) => {
     res.status(201).json({ success: true, payment_id: payment._id });
   } catch (error) {
     logger.error('Error creating payment:', error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+app.put('/api/payments/:paymentId/status', async (req, res) => {
+  try {
+    const { paymentId } = req.params;
+    const { username, role, payment_status } = req.body;
+
+    if (!username || !role || !payment_status) {
+      return res.status(400).json({ success: false, message: 'username, role, and payment_status are required' });
+    }
+    if (String(role).toLowerCase() !== 'admin') {
+      return res.status(403).json({ success: false, message: 'Only admin can verify payments' });
+    }
+
+    const payment = await Payment.findByIdAndUpdate(
+      paymentId,
+      { payment_status },
+      { new: true }
+    ).populate('project_id', 'project_name');
+
+    if (!payment) {
+      return res.status(404).json({ success: false, message: 'Payment not found' });
+    }
+
+    const user = await User.findOne({ username });
+    await createActivityLog(
+      user?._id,
+      username,
+      user?.role || 'admin',
+      'UPDATE',
+      `Updated payment status to ${payment_status} for ${payment.project_id?.project_name || 'project'}`
+    );
+
+    res.json({ success: true, message: 'Payment status updated.', payment_status: payment.payment_status });
+  } catch (error) {
+    logger.error('Error updating payment status:', error);
     res.status(500).json({ success: false, message: error.message });
   }
 });
@@ -4369,6 +4411,10 @@ app.get('/api/messages/:conversationId', async (req, res) => {
 app.post('/api/messages', async (req, res) => {
   try {
     const { conversation_id, sender_id, sender_name, content, attachment } = req.body;
+    const conversation = await Conversation.findById(conversation_id);
+    if (!conversation) {
+      return res.status(404).json({ success: false, message: 'Conversation not found' });
+    }
     
     const message = await Message.create({
       conversation_id,
@@ -4384,6 +4430,33 @@ app.post('/api/messages', async (req, res) => {
       last_message: content,
       last_message_date: new Date()
     });
+
+    const senderIsParticipant1 = String(conversation.participant1_id) === String(sender_id);
+    const recipientId = senderIsParticipant1 ? conversation.participant2_id : conversation.participant1_id;
+    const recipientName = senderIsParticipant1 ? conversation.participant2_name : conversation.participant1_name;
+    const recipientRole = senderIsParticipant1 ? conversation.participant2_role : conversation.participant1_role;
+    const conversationProject = conversation.project_name || 'Messages';
+    const trimmedContent = typeof content === 'string' ? content.trim() : '';
+    const preview = trimmedContent.length > 80 ? `${trimmedContent.substring(0, 77)}...` : trimmedContent;
+
+    if (recipientId) {
+      await createNotification(
+        recipientId,
+        recipientName || 'User',
+        recipientRole || 'client',
+        'message',
+        'new_message',
+        `New message from ${sender_name || 'A teammate'}`,
+        preview || 'You received a new message.',
+        '/messages',
+        {
+          conversation_id,
+          sender_id,
+          sender_name,
+          project_name: conversationProject
+        }
+      );
+    }
     
     res.status(201).json({ success: true, message_id: message._id });
   } catch (error) {
